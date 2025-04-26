@@ -1,7 +1,9 @@
 <script lang="ts">
-	import '../app.css';
+	import '@/assets/css/root.css';
 
 	let { children } = $props();
 </script>
 
-{@render children()}
+<div class="flex size-full flex-col">
+	{@render children()}
+</div>
