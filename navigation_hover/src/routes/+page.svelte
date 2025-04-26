@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { untrack } from 'svelte';
+	import { onMount, untrack } from 'svelte';
 
 	const NAV_ITEMS = [
 		{
@@ -31,10 +31,6 @@
 		const indicatorLeft = linkLeft + linkWidth / 2 - indicatorWidth / 2;
 		indicatorNode.style.transform = `translateX(${indicatorLeft}px)`;
 		indicatorNode.style.width = `${indicatorWidth}px`;
-
-		if (indicatorNode.classList.contains('hidden')) {
-			indicatorNode.classList.remove('hidden');
-		}
 	};
 
 	const onUpdateActiveLinkId = (event: MouseEvent) => {
@@ -69,6 +65,30 @@
 			updateIndicator(activeLink);
 		});
 	});
+
+	onMount(() => {
+		const resizeObserver = new ResizeObserver(() => {
+			if (!listNode) return;
+
+			const activeLink = Array.from(listNode.children).find(
+				(child) => child.getAttribute('data-active') === 'true'
+			) as HTMLElement;
+
+			if (!activeLink) return;
+
+			updateIndicator(activeLink);
+		});
+
+		if (listNode) {
+			resizeObserver.observe(listNode);
+		}
+
+		return () => {
+			if (listNode) {
+				resizeObserver.disconnect();
+			}
+		};
+	});
 </script>
 
 <section class="size-full grow">
@@ -85,7 +105,7 @@
 			{/each}
 			<li
 				bind:this={indicatorNode}
-				class="absolute inset-x-0 -bottom-1 hidden h-1 rounded-full bg-white transition-all duration-300"
+				class="absolute inset-x-0 -bottom-1 h-1 w-0 rounded-full bg-white transition-all duration-300"
 			></li>
 		</ul>
 	</div>
