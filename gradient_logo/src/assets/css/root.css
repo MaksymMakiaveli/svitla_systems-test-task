@@ -1,45 +1,42 @@
 @import 'tailwindcss';
 
-
 @theme {
-  --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+	--shadow-card: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
 
-  --color-primary: #333333;
+	--color-primary: #333333;
 
-  --radius-140: 140px;
-  --radius-120: 120px;
-  --radius-100: 100px;
-  --radius-80: 80px;
-  --radius-60: 60px;
-  
+	--radius-140: 140px;
+	--radius-120: 120px;
+	--radius-100: 100px;
+	--radius-80: 80px;
+	--radius-60: 60px;
 }
 
+@keyframes gradient-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
 
-body, html {
-  width: 100vw;
-  height: 100%;
-  min-height: 100vh;
+body,
+html {
+	width: 100vw;
+	height: 100vh;
 
-  @supports (min-height: 100dvh) and (width: 100dvw) {
-    min-height: 100dvh;
-    width: 100dvw;
-  }
+	@supports (height: 100dvh) and (width: 100dvw) {
+		height: 100dvh;
+		width: 100dvw;
+	}
 
 	background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #e2d1f9 100%);
 	animation: gradient-animation 15s ease infinite;
 	background-size: 200% 200%;
-	
-	@keyframes gradient-animation {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
 
-  color: var(--color-white);
+	color: var(--color-white);
 }
